@@ -17,7 +17,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errores[] = "La contraseña es obligatoria";
     }
     if(empty($errores)){
-        
+        //revisar si existe el usuario
+
+        $query = "SELECT * FROM usuarios WHERE email = '${email}'";
+        $resultado = mysqli_query($db, $query);
+
+        if($resultado->num_rows){
+            //revisar el password
+            $usuario = mysqli_fetch_assoc($resultado);
+
+            $auth = password_verify($pass, $usuario['password']);
+            //auth queda en true si es correcta
+            if($auth){
+                //usuario autenticado con superglobal session_Start
+
+                session_start();
+                //llenar el arreglo de la sesion
+
+                $_SESSION['usuario'] = $usuario['email'];
+                $_SESSION['loguin'] = true;
+                header('Location: /admin');
+            }else{
+                $errores[]= "Password es incorrecto";
+            }
+        }else{
+            $errores[]="El usuario no existe";
+        }
     }
 }
 
