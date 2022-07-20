@@ -1,7 +1,14 @@
 <?php
-
+//importar funciones
+require '../includes/funciones.php';
 //importar la conexion
 require '../includes/config/database.php';
+
+$auth = estaAtuh();
+if(!$auth){
+    header('Location: /login.php');
+}
+
 $db =  conectarDB();
 //escribir el query
 $query = "SELECT * FROM propiedades";
@@ -45,7 +52,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 
-require '../includes/funciones.php';
 incluirTemplate('header');
 ?>
 <main class="contenedor seccion">

@@ -1,6 +1,14 @@
 
 <?php
+//oimportar funciones
+require '../../includes/funciones.php';
+//importar db
+require '../../includes/config/database.php';
 
+$auth = estaAtuh();
+if(!$auth){
+    header('Location: /login.php');
+}
 //validar por u id de propiedad valido
 $id = $_GET['id'];
 $id = filter_var($id, FILTER_VALIDATE_INT);
@@ -10,7 +18,7 @@ if(!$id){
 }
 
 
-require '../../includes/config/database.php';
+
 $db =  conectarDB();
 
 //consulta para traer los datos ed la propiedad
@@ -131,7 +139,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-require '../../includes/funciones.php';
+
 incluirTemplate('header');
 ?>
 <main class="contenedor seccion">

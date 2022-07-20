@@ -1,6 +1,12 @@
 
-    <?php $inicio = true;
+    <?php
     require '../../includes/funciones.php';
+    $auth = estaAtuh();
+    if(!$auth){
+        header('Location: /login.php');
+    }
+
+
     incluirTemplate('header');
     ?>
     <main class="contenedor seccion">

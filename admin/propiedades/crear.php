@@ -1,6 +1,15 @@
 <?php
-
+//importar funciones
+require '../../includes/funciones.php';
+//importar db
 require '../../includes/config/database.php';
+
+$auth = estaAtuh();
+if(!$auth){
+    header('Location: /login.php');
+}
+
+
 $db =  conectarDB();
 
 //consultar por vendedores 
@@ -108,7 +117,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-require '../../includes/funciones.php';
 incluirTemplate('header');
 ?>
 <main class="contenedor seccion">
